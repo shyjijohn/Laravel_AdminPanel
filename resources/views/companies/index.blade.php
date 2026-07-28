@@ -32,7 +32,7 @@
                             <tr>
                                 <td style="width: 80px;">
                                     @if ($company->logo)
-                                        <img src="{{ asset('storage/' . $company->logo) }}" alt="{{ $company->name }}" class="img-thumbnail" style="max-height: 50px;">
+                                        <img src="{{ asset($company->logo) }}" alt="{{ $company->name }}" class="img-thumbnail" style="max-height: 50px;">
                                     @else
                                         <span class="badge bg-secondary">No Logo</span>
                                     @endif

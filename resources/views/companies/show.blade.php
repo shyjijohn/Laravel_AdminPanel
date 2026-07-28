@@ -16,7 +16,7 @@
             <div class="row align-items-center">
                 <div class="col-md-2 text-center mb-3 mb-md-0">
                     @if ($company->logo)
-                        <img src="{{ asset('storage/' . $company->logo) }}" alt="{{ $company->name }}" class="img-fluid rounded border" style="max-height: 120px;">
+                        <img src="{{ asset($company->logo) }}" alt="{{ $company->name }}" class="img-fluid rounded border" style="max-height: 120px;">
                     @else
                         <div class="p-4 bg-light text-muted border rounded">No Logo</div>
                     @endif
