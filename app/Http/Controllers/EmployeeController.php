@@ -33,8 +33,8 @@ class EmployeeController extends Controller
         'first_name' => 'required|string|max:255',
         'last_name'  => 'required|string|max:255',
         'company_id' => 'required|exists:companies,id',
-        'email'      => 'nullable|email|max:255',
-        'phone'      => 'nullable|string|max:20',
+        'email'      => 'nullable|email|max:255|unique:employees,email',
+        'phone'      => 'nullable|string|max:20|unique:employees,phone',
     ]);
 
         Employee::create($validated);
@@ -66,8 +66,8 @@ class EmployeeController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name'  => 'required|string|max:255',
             'company_id' => 'required|exists:companies,id',
-            'email'      => 'nullable|email|max:255',
-            'phone'      => 'nullable|string|max:20',
+            'email'      => 'nullable|email|max:255|unique:employees,email,' . $employee->id,
+            'phone'      => 'nullable|string|max:20|unique:employees,phone,' . $employee->id,
         ]);
 
         $employee->update($validated);

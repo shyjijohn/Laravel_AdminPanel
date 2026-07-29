@@ -21,7 +21,12 @@ class CompanyController extends Controller
 
     public function store(StoreCompanyRequest $request)
     {
-        $validated = $request->validated();
+        $validated = $request->validate([
+            'name'    => 'required|string|max:255|unique:companies,name',
+            'email'   => 'required|email|max:255|unique:companies,email',
+            'website' => 'nullable|url|max:255',
+            'logo'    => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=100,min_height=100',
+        ]);
 
         if ($request->hasFile('logo')) {
             $file = $request->file('logo');
@@ -50,10 +55,14 @@ class CompanyController extends Controller
 
     public function update(StoreCompanyRequest $request, Company $company)
     {
-        $validated = $request->validated();
+        $validated = $request->validate([
+            'name'    => 'required|string|max:255|unique:companies,name,' . $company->id,
+            'email'   => 'required|email|max:255|unique:companies,email,' . $company->id,
+            'website' => 'nullable|url|max:255',
+            'logo'    => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=100,min_height=100',
+        ]);
 
         if ($request->hasFile('logo')) {
-            // Remove old file if present
             if ($company->logo && file_exists(public_path($company->logo))) {
                 @unlink(public_path($company->logo));
             }
