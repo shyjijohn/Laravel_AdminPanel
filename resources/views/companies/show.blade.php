@@ -2,9 +2,12 @@
 
 @section('content')
 <div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Company Details</h2>
+    <div class="page-header">
         <div>
+            <p class="page-eyebrow">Company</p>
+            <h1 class="page-title">Company Details</h1>
+        </div>
+        <div class="page-actions">
             <a href="{{ route('companies.edit', $company) }}" class="btn btn-warning me-1">Edit Company</a>
             <a href="{{ route('companies.index') }}" class="btn btn-secondary">Back to List</a>
         </div>

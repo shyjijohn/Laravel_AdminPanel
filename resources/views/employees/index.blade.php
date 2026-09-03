@@ -2,8 +2,12 @@
 
 @section('content')
 <div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Employees</h2>
+    <div class="page-header">
+        <div>
+            <p class="page-eyebrow">Directory</p>
+            <h1 class="page-title">Employees</h1>
+            <p class="page-description">Manage employee records and company assignments.</p>
+        </div>
         <a href="{{ route('employees.create') }}" class="btn btn-primary">Add New Employee</a>
     </div>
 

@@ -2,8 +2,12 @@
 
 @section('content')
 <div class="container">
-    <div class="d-flex justify-content-end mt-3">
-    {{ $companies->links() }}
+    <div class="page-header">
+        <div>
+            <p class="page-eyebrow">Directory</p>
+            <h1 class="page-title">Companies</h1>
+            <p class="page-description">Manage company records and their contact details.</p>
+        </div>
         <a href="{{ route('companies.create') }}" class="btn btn-primary">Add New Company</a>
     </div>
 
