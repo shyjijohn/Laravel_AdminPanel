@@ -27,8 +27,37 @@ body {
 }
 
 .navbar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
     color: var(--admin-heading);
     letter-spacing: -0.02em;
+}
+
+.navbar-brand-mark {
+    flex: 0 0 auto;
+    border-radius: 0.6rem;
+    box-shadow: 0 4px 12px rgba(11, 94, 215, 0.22);
+}
+
+.navbar-brand-copy {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.05;
+}
+
+.navbar-brand-name {
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.navbar-brand-tagline {
+    margin-top: 0.2rem;
+    color: var(--admin-muted);
+    font-size: 0.67rem;
+    font-weight: 600;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
 }
 
 .navbar .nav-link {

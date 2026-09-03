@@ -22,8 +22,12 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand fw-bold" href="{{ url('/') }}">
-                    Admin Panel
+                <a class="navbar-brand" href="{{ route('home') }}" aria-label="Admin Panel dashboard">
+                    <img class="navbar-brand-mark" src="{{ asset('favicon.svg') }}" alt="" width="36" height="36">
+                    <span class="navbar-brand-copy">
+                        <span class="navbar-brand-name">Admin Panel</span>
+                        <span class="navbar-brand-tagline">Management portal</span>
+                    </span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
