@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Company;
+use App\Models\Employee;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $companyCount = Company::count();
+        $employeeCount = Employee::count();
+        $recentCompanies = Company::latest()->limit(5)->get();
+        $recentEmployees = Employee::with('company')->latest()->limit(5)->get();
+
+        return view('home', compact(
+            'companyCount',
+            'employeeCount',
+            'recentCompanies',
+            'recentEmployees'
+        ));
     }
 }

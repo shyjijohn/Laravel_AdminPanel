@@ -113,6 +113,196 @@ main {
     gap: 0.5rem;
 }
 
+.dashboard-welcome {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    overflow: hidden;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border: 1px solid #b9d3fb;
+    border-radius: 1rem;
+    color: #fff;
+    background: linear-gradient(135deg, #063b83 0%, #0b5ed7 62%, #287df0 100%);
+    box-shadow: var(--admin-shadow);
+}
+
+.dashboard-welcome__content {
+    position: relative;
+    z-index: 1;
+    max-width: 42rem;
+}
+
+.dashboard-welcome__label {
+    margin-bottom: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+.dashboard-welcome h2 {
+    margin-bottom: 0.65rem;
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    font-weight: 800;
+}
+
+.dashboard-welcome p:last-child {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.92;
+}
+
+.dashboard-welcome__mark {
+    display: grid;
+    flex: 0 0 auto;
+    width: 5.25rem;
+    height: 5.25rem;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 1.25rem;
+    font-size: 1.65rem;
+    font-weight: 800;
+    background: rgba(255, 255, 255, 0.14);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-block: 1.5rem;
+}
+
+.dashboard-stat {
+    padding: 1.25rem 1.4rem;
+    border: 1px solid var(--admin-border);
+    border-radius: 0.8rem;
+    background: var(--admin-surface);
+    box-shadow: var(--admin-shadow);
+}
+
+.dashboard-stat__label,
+.dashboard-list__eyebrow {
+    margin-bottom: 0.2rem;
+    color: var(--admin-muted);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.075em;
+    text-transform: uppercase;
+}
+
+.dashboard-stat__value {
+    margin-bottom: 0.1rem;
+    color: var(--admin-heading);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+.dashboard-stat__description {
+    margin: 0;
+    color: var(--admin-muted);
+}
+
+.dashboard-shortcuts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.dashboard-shortcut {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1rem 1.15rem;
+    border: 1px solid var(--admin-border);
+    border-radius: 0.8rem;
+    color: var(--admin-heading);
+    background: var(--admin-surface);
+    box-shadow: var(--admin-shadow);
+    text-decoration: none;
+    transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+}
+
+.dashboard-shortcut:hover {
+    border-color: #8db9f7;
+    color: var(--admin-primary);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.11);
+    transform: translateY(-1px);
+}
+
+.dashboard-shortcut:focus-visible {
+    outline: 3px solid rgba(13, 110, 253, 0.35);
+    outline-offset: 2px;
+}
+
+.dashboard-shortcut__icon {
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    border-radius: 0.65rem;
+    color: #fff;
+    font-weight: 800;
+    background: var(--admin-primary);
+}
+
+.dashboard-shortcut strong,
+.dashboard-shortcut small {
+    display: block;
+}
+
+.dashboard-shortcut small {
+    margin-top: 0.15rem;
+    color: var(--admin-muted);
+}
+
+.dashboard-shortcut__arrow {
+    font-size: 1.35rem;
+    font-weight: 700;
+}
+
+.dashboard-list > .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.dashboard-list__title {
+    margin: 0;
+    color: var(--admin-heading);
+    font-size: 1.05rem;
+    font-weight: 750;
+}
+
+.dashboard-list__link {
+    flex: 0 0 auto;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.dashboard-list__link:hover,
+.dashboard-list__link:focus-visible {
+    text-decoration: underline;
+}
+
+.dashboard-list__secondary {
+    display: block;
+    max-width: 17rem;
+    overflow: hidden;
+    color: var(--admin-muted);
+    font-size: 0.8rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .card {
     overflow: hidden;
     border-color: var(--admin-border);
@@ -267,6 +457,18 @@ main {
     .table-actions {
         justify-content: flex-start;
         min-width: 0;
+    }
+
+    .dashboard-welcome__mark {
+        display: none;
+    }
+
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-shortcuts {
+        grid-template-columns: 1fr;
     }
 
     .card-header,
