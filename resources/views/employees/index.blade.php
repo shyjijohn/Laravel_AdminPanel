@@ -48,14 +48,16 @@
                                 </td>
                                 <td>{{ $employee->email ?? 'N/A' }}</td>
                                 <td>{{ $employee->phone ?? 'N/A' }}</td>
-                                <td class="text-end">
-                                    <a href="{{ route('employees.show', $employee) }}" class="btn btn-sm btn-outline-info me-1">View</a>
-                                    <a href="{{ route('employees.edit', $employee) }}" class="btn btn-sm btn-outline-warning me-1">Edit</a>
-                                    <form action="{{ route('employees.destroy', $employee) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this employee?');">
+                                <td>
+                                    <div class="table-actions">
+                                    <a href="{{ route('employees.show', $employee) }}" class="btn btn-sm btn-action-view">View</a>
+                                    <a href="{{ route('employees.edit', $employee) }}" class="btn btn-sm btn-action-edit">Edit</a>
+                                    <form action="{{ route('employees.destroy', $employee) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this employee?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                        <button type="submit" class="btn btn-sm btn-action-delete">Delete</button>
                                     </form>
+                                    </div>
                                 </td>
                             </tr>
                         @empty

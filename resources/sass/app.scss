@@ -156,6 +156,71 @@ main {
     font-weight: 600;
 }
 
+.table-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.4rem;
+    min-width: 13rem;
+}
+
+.table-actions form {
+    display: inline-flex;
+    margin: 0;
+}
+
+.btn-action-view,
+.btn-action-edit,
+.btn-action-delete {
+    min-width: 3.75rem;
+    border-width: 1px;
+    color: #fff;
+}
+
+.btn-action-view {
+    border-color: #084298;
+    background: #084298;
+}
+
+.btn-action-view:hover,
+.btn-action-view:focus-visible {
+    border-color: #052c65;
+    color: #fff;
+    background: #052c65;
+}
+
+.btn-action-edit {
+    border-color: #343a40;
+    background: #343a40;
+}
+
+.btn-action-edit:hover,
+.btn-action-edit:focus-visible {
+    border-color: #212529;
+    color: #fff;
+    background: #212529;
+}
+
+.btn-action-delete {
+    border-color: #b02a37;
+    background: #b02a37;
+}
+
+.btn-action-delete:hover,
+.btn-action-delete:focus-visible {
+    border-color: #842029;
+    color: #fff;
+    background: #842029;
+}
+
+.btn-action-view:focus-visible,
+.btn-action-edit:focus-visible,
+.btn-action-delete:focus-visible {
+    outline: 3px solid rgba(13, 110, 253, 0.35);
+    outline-offset: 2px;
+    box-shadow: none;
+}
+
 .page-header > .btn {
     flex: 0 0 auto;
     padding: 0.65rem 1rem;
@@ -197,6 +262,11 @@ main {
 
     .page-actions .btn {
         flex: 1 1 auto;
+    }
+
+    .table-actions {
+        justify-content: flex-start;
+        min-width: 0;
     }
 
     .card-header,

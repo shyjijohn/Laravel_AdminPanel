@@ -50,14 +50,16 @@
                                         N/A
                                     @endif
                                 </td>
-                                <td class="text-end">
-                                    <a href="{{ route('companies.show', $company) }}" class="btn btn-sm btn-outline-info me-1">View</a>
-                                    <a href="{{ route('companies.edit', $company) }}" class="btn btn-sm btn-outline-warning me-1">Edit</a>
-                                    <form action="{{ route('companies.destroy', $company) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this company?');">
+                                <td>
+                                    <div class="table-actions">
+                                    <a href="{{ route('companies.show', $company) }}" class="btn btn-sm btn-action-view">View</a>
+                                    <a href="{{ route('companies.edit', $company) }}" class="btn btn-sm btn-action-edit">Edit</a>
+                                    <form action="{{ route('companies.destroy', $company) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this company?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                        <button type="submit" class="btn btn-sm btn-action-delete">Delete</button>
                                     </form>
+                                    </div>
                                 </td>
                             </tr>
                         @empty

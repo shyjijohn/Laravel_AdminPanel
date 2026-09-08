@@ -8,7 +8,7 @@
             <h1 class="page-title">Employee Profile</h1>
         </div>
         <div class="page-actions">
-            <a href="{{ route('employees.edit', $employee) }}" class="btn btn-warning me-1">Edit Employee</a>
+            <a href="{{ route('employees.edit', $employee) }}" class="btn btn-action-edit">Edit Employee</a>
             <a href="{{ route('employees.index') }}" class="btn btn-secondary">Back to List</a>
         </div>
     </div>
