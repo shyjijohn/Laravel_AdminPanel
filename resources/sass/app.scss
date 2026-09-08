@@ -368,6 +368,61 @@ main {
     border-bottom: 0;
 }
 
+.directory-table-wrap {
+    overflow-x: auto;
+    scrollbar-color: #94a3b8 #eef2f7;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+}
+
+.directory-table-wrap:focus-visible {
+    border-radius: 0.5rem;
+    outline: 3px solid rgba(13, 110, 253, 0.3);
+    outline-offset: -3px;
+}
+
+.directory-table {
+    width: 100%;
+    min-width: 62rem;
+}
+
+.employee-table th:nth-child(1),
+.employee-table td:nth-child(1) {
+    min-width: 8rem;
+}
+
+.employee-table th:nth-child(2),
+.employee-table td:nth-child(2) {
+    min-width: 9rem;
+}
+
+.employee-table th:nth-child(3),
+.employee-table td:nth-child(3) {
+    min-width: 11rem;
+}
+
+.employee-table th:nth-child(4),
+.employee-table td:nth-child(4) {
+    min-width: 15rem;
+    overflow-wrap: anywhere;
+}
+
+.employee-table th:nth-child(5),
+.employee-table td:nth-child(5) {
+    min-width: 9rem;
+    white-space: nowrap;
+}
+
+.employee-table th:nth-child(6),
+.employee-table td:nth-child(6) {
+    min-width: 14rem;
+}
+
+.employee-table td:nth-child(1),
+.employee-table td:nth-child(2) {
+    white-space: nowrap;
+}
+
 .btn {
     font-weight: 600;
 }
@@ -532,6 +587,10 @@ main {
 
     .directory-search__field {
         flex-basis: auto;
+    }
+
+    .directory-table > :not(caption) > * > * {
+        padding: 0.75rem;
     }
 
     .card-header,

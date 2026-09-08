@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreCompanyRequest;
+use App\Models\Company;
 
 class CompanyController extends Controller
 {
     public function index()
     {
-        $companies = Company::paginate(10);
+        $companies = Company::query()
+            ->orderBy('name')
+            ->orderBy('id')
+            ->paginate(10);
+
         return view('companies.index', compact('companies'));
     }
 
@@ -22,29 +25,31 @@ class CompanyController extends Controller
     public function store(StoreCompanyRequest $request)
     {
         $validated = $request->validate([
-            'name'    => 'required|string|max:255|unique:companies,name',
-            'email'   => 'required|email|max:255|unique:companies,email',
+            'name' => 'required|string|max:255|unique:companies,name',
+            'email' => 'required|email|max:255|unique:companies,email',
             'website' => 'nullable|url|max:255',
-            'logo'    => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=100,min_height=100',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=100,min_height=100',
         ]);
 
         if ($request->hasFile('logo')) {
             $file = $request->file('logo');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            
+            $filename = time().'_'.$file->getClientOriginalName();
+
             // Saves directly to public/logos/
             $file->move(public_path('logos'), $filename);
-            
-            $validated['logo'] = 'logos/' . $filename;
+
+            $validated['logo'] = 'logos/'.$filename;
         }
 
         Company::create($validated);
+
         return redirect()->route('companies.index')->with('success', 'Company created!');
     }
 
     public function show(Company $company)
     {
         $employees = $company->employees()->paginate(10);
+
         return view('companies.show', compact('company', 'employees'));
     }
 
@@ -56,10 +61,10 @@ class CompanyController extends Controller
     public function update(StoreCompanyRequest $request, Company $company)
     {
         $validated = $request->validate([
-            'name'    => 'required|string|max:255|unique:companies,name,' . $company->id,
-            'email'   => 'required|email|max:255|unique:companies,email,' . $company->id,
+            'name' => 'required|string|max:255|unique:companies,name,'.$company->id,
+            'email' => 'required|email|max:255|unique:companies,email,'.$company->id,
             'website' => 'nullable|url|max:255',
-            'logo'    => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=100,min_height=100',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=100,min_height=100',
         ]);
 
         if ($request->hasFile('logo')) {
@@ -68,10 +73,10 @@ class CompanyController extends Controller
             }
 
             $file = $request->file('logo');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            
+            $filename = time().'_'.$file->getClientOriginalName();
+
             $file->move(public_path('logos'), $filename);
-            $validated['logo'] = 'logos/' . $filename;
+            $validated['logo'] = 'logos/'.$filename;
         }
 
         $company->update($validated);

@@ -45,8 +45,8 @@
 
     <div class="card shadow-sm">
         <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
+            <div class="table-responsive directory-table-wrap" tabindex="0" role="region" aria-label="Employee directory table">
+                <table class="table table-hover align-middle mb-0 directory-table employee-table">
                     <thead class="table-light">
                         <tr>
                             <x-sortable-heading column="first_name" label="First Name" :sort="$sort" :direction="$direction" />

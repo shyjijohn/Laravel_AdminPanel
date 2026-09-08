@@ -163,4 +163,18 @@ class EmployeeIndexTest extends TestCase
             ->assertSee('direction=desc', false)
             ->assertSee('page=2', false);
     }
+
+    public function test_employee_table_has_an_accessible_responsive_scroll_region(): void
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->get(route('employees.index'))
+            ->assertOk()
+            ->assertSee('class="table-responsive directory-table-wrap"', false)
+            ->assertSee('tabindex="0"', false)
+            ->assertSee('role="region"', false)
+            ->assertSee('aria-label="Employee directory table"', false)
+            ->assertSee('directory-table employee-table', false);
+    }
 }
