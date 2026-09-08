@@ -4,17 +4,38 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCompanyRequest;
 use App\Models\Company;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CompanyController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $companies = Company::query()
-            ->orderBy('name')
-            ->orderBy('id')
-            ->paginate(10);
+        $validated = $request->validate([
+            'search' => ['nullable', 'string', 'max:100'],
+            'sort' => ['nullable', Rule::in(['name', 'email', 'website'])],
+            'direction' => ['nullable', Rule::in(['asc', 'desc'])],
+        ]);
 
-        return view('companies.index', compact('companies'));
+        $search = trim($validated['search'] ?? '');
+        $sort = $validated['sort'] ?? 'name';
+        $direction = $validated['direction'] ?? 'asc';
+
+        $companies = Company::query()
+            ->withCount('employees')
+            ->when($search !== '', function ($query) use ($search) {
+                $query->where(function ($query) use ($search) {
+                    $query->where('name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%")
+                        ->orWhere('website', 'like', "%{$search}%");
+                });
+            })
+            ->orderBy($sort, $direction)
+            ->orderBy('id')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('companies.index', compact('companies', 'search', 'sort', 'direction'));
     }
 
     public function create()
@@ -87,6 +108,11 @@ class CompanyController extends Controller
 
     public function destroy(Company $company)
     {
+        if ($company->employees()->exists()) {
+            return redirect()->route('companies.index')
+                ->with('error', 'This company cannot be deleted while employees are assigned to it. Reassign or delete those employees first.');
+        }
+
         if ($company->logo && file_exists(public_path($company->logo))) {
             @unlink(public_path($company->logo));
         }

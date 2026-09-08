@@ -47,8 +47,8 @@
             <a href="{{ route('employees.create', ['company_id' => $company->id]) }}" class="btn btn-sm btn-primary">Add Employee</a>
         </div>
         <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
+            <div class="table-responsive directory-table-wrap" tabindex="0" role="region" aria-label="Employees at {{ $company->name }}">
+                <table class="table table-hover align-middle mb-0 directory-table company-employees-table">
                     <thead class="table-light">
                         <tr>
                             <th>First Name</th>
