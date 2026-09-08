@@ -5,18 +5,49 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class EmployeeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $employees = Employee::with('company')
-            ->orderBy('last_name')
-            ->orderBy('first_name')
-            ->orderBy('id')
-            ->paginate(10);
+        $validated = $request->validate([
+            'search' => ['nullable', 'string', 'max:100'],
+            'sort' => ['nullable', Rule::in(['first_name', 'last_name', 'company', 'email', 'phone'])],
+            'direction' => ['nullable', Rule::in(['asc', 'desc'])],
+        ]);
 
-        return view('employees.index', compact('employees'));
+        $search = trim($validated['search'] ?? '');
+        $sort = $validated['sort'] ?? 'last_name';
+        $direction = $validated['direction'] ?? 'asc';
+
+        $employees = Employee::query()
+            ->with('company')
+            ->when($search !== '', function ($query) use ($search) {
+                $query->where(function ($query) use ($search) {
+                    $query->where('first_name', 'like', "%{$search}%")
+                        ->orWhere('last_name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%")
+                        ->orWhere('phone', 'like', "%{$search}%")
+                        ->orWhereHas('company', function ($query) use ($search) {
+                            $query->where('name', 'like', "%{$search}%");
+                        });
+                });
+            })
+            ->when(
+                $sort === 'company',
+                fn ($query) => $query->orderBy(
+                    Company::select('name')->whereColumn('companies.id', 'employees.company_id'),
+                    $direction
+                ),
+                fn ($query) => $query->orderBy($sort, $direction)
+            )
+            ->when($sort === 'last_name', fn ($query) => $query->orderBy('first_name', $direction))
+            ->orderBy('id')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('employees.index', compact('employees', 'search', 'sort', 'direction'));
     }
 
     public function create(Request $request)

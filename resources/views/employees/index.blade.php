@@ -18,18 +18,43 @@
         </div>
     @endif
 
+    <form class="directory-search" method="GET" action="{{ route('employees.index') }}" role="search">
+        <div class="directory-search__field">
+            <label for="employee-search" class="form-label">Search employees</label>
+            <input
+                id="employee-search"
+                name="search"
+                type="search"
+                class="form-control"
+                value="{{ $search }}"
+                maxlength="100"
+                placeholder="Name, company, email or phone"
+            >
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+        @if ($search !== '')
+            <a href="{{ route('employees.index') }}" class="btn btn-secondary">Clear filters</a>
+        @endif
+    </form>
+
+    @if ($search !== '')
+        <p class="directory-results" aria-live="polite">
+            {{ $employees->total() }} {{ Str::plural('result', $employees->total()) }} for “{{ $search }}”
+        </p>
+    @endif
+
     <div class="card shadow-sm">
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
                     <thead class="table-light">
                         <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Company</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th class="text-end">Actions</th>
+                            <x-sortable-heading column="first_name" label="First Name" :sort="$sort" :direction="$direction" />
+                            <x-sortable-heading column="last_name" label="Last Name" :sort="$sort" :direction="$direction" />
+                            <x-sortable-heading column="company" label="Company" :sort="$sort" :direction="$direction" />
+                            <x-sortable-heading column="email" label="Email" :sort="$sort" :direction="$direction" />
+                            <x-sortable-heading column="phone" label="Phone" :sort="$sort" :direction="$direction" />
+                            <th scope="col" class="text-end">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,19 +75,21 @@
                                 <td>{{ $employee->phone ?? 'N/A' }}</td>
                                 <td>
                                     <div class="table-actions">
-                                    <a href="{{ route('employees.show', $employee) }}" class="btn btn-sm btn-action-view">View</a>
-                                    <a href="{{ route('employees.edit', $employee) }}" class="btn btn-sm btn-action-edit">Edit</a>
-                                    <form action="{{ route('employees.destroy', $employee) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this employee?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-action-delete">Delete</button>
-                                    </form>
+                                        <a href="{{ route('employees.show', $employee) }}" class="btn btn-sm btn-action-view">View</a>
+                                        <a href="{{ route('employees.edit', $employee) }}" class="btn btn-sm btn-action-edit">Edit</a>
+                                        <form action="{{ route('employees.destroy', $employee) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this employee?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-action-delete">Delete</button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center py-4 text-muted">No employees found.</td>
+                                <td colspan="6" class="text-center py-4 text-muted">
+                                    {{ $search !== '' ? 'No employees match your search.' : 'No employees found.' }}
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>

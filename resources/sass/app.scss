@@ -338,6 +338,32 @@ main {
     white-space: nowrap;
 }
 
+.sortable-heading {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: inherit;
+    text-decoration: none;
+}
+
+.sortable-heading:hover,
+.sortable-heading:focus-visible,
+.sortable-heading.is-active {
+    color: var(--admin-primary);
+}
+
+.sortable-heading:focus-visible {
+    border-radius: 0.2rem;
+    outline: 3px solid rgba(13, 110, 253, 0.25);
+    outline-offset: 2px;
+}
+
+.sortable-heading__icon {
+    min-width: 0.75rem;
+    font-size: 0.85rem;
+    line-height: 1;
+}
+
 .table tbody tr:last-child > * {
     border-bottom: 0;
 }
@@ -420,6 +446,34 @@ main {
     border-radius: 0.65rem;
 }
 
+.directory-search {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--admin-border);
+    border-radius: 0.75rem;
+    background: var(--admin-surface);
+    box-shadow: var(--admin-shadow);
+}
+
+.directory-search__field {
+    flex: 1 1 22rem;
+}
+
+.directory-search .form-label {
+    margin-bottom: 0.35rem;
+    color: var(--admin-heading);
+    font-weight: 700;
+}
+
+.directory-results {
+    margin: 0 0 0.75rem;
+    color: var(--admin-muted);
+    font-size: 0.85rem;
+}
+
 .pagination svg {
     width: 1em;
     height: 1em;
@@ -469,6 +523,15 @@ main {
 
     .dashboard-shortcuts {
         grid-template-columns: 1fr;
+    }
+
+    .directory-search {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .directory-search__field {
+        flex-basis: auto;
     }
 
     .card-header,
